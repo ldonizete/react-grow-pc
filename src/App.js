@@ -34,7 +34,7 @@ class App extends Component {
         {backdrop}
         <main style={{marginTop: '64px'}}>
           <div className="rowBlockSquare">
-           <BlockSquare />
+           <BlockSquare title="Solo" data="75"/>
            <BlockSquare />
            <BlockSquare />
            <BlockSquare />
