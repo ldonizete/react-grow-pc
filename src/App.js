@@ -5,6 +5,7 @@ import SideDrawer from './components/SideDrawer/SideDrawer';
 import Backdrop from './components/Backdrop/Backdrop';
 import BlockSquare from './components/BlockSquare/BlockSquare';
 import Footer from './components/Footer/Footer';
+import ManualButton from './components/Buttons/ManualButton/index';
 
 class App extends Component {
   state = {
@@ -34,10 +35,14 @@ class App extends Component {
         <SideDrawer show={this.state.sideDrawerOpen}/>
         {backdrop}
         
-        <main className="divMain" style={{marginTop: '60px'}}>
-          <div className="imagem" 
-            style={{backgroundColor: 'red', width: '350px',
-            height: '350px'}}>
+        <main className="divMain">
+          <div className="divImg">
+          </div>
+          <div className="painelManualButton">
+            <ManualButton title="Luz"/>
+            <ManualButton title="Fan"/>
+            <ManualButton title="Irrigar"/>
+            <ManualButton title="Foto"/>
           </div>
           <div className="rowBlockSquare">
            <BlockSquare title="Humidade do solo" data="75"/>
