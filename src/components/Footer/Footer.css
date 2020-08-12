@@ -1,0 +1,26 @@
+.footerBase{
+  bottom: 0;
+  background: green;
+  padding: 20px;
+  left: 0;
+  position: fixed;
+  height: 60px;
+  width: 100%;
+  color: white;
+  border-top: 1px solid #E7E7E7;
+  text-align: center;
+}
+
+.phantom {
+  display: 'block';
+  padding: '20px';
+  height: '60px';
+  width: '100%';
+}
+
+@media (max-width: 769px) {
+  .footerBase {
+    margin-bottom: 50px;
+    display: none;
+  }
+}

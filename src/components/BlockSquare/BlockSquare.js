@@ -10,7 +10,7 @@ const blockSquare = props => (
           (props.data !== null || props.data !== undefined)
           ? props.data
           : 0
-        }%
+        }
       </label>
     </div>
   </div>

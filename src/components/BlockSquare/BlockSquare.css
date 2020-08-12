@@ -15,5 +15,13 @@
 }
 
 .lblTitulo {
-  font-size: 20px;
+  font-size: 17px;
+}
+
+.divMain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: '64px'
 }
