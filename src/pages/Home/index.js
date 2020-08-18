@@ -46,6 +46,16 @@ class Home extends Component {
       date:"",
       product:""
     },
+    waterBomb:{
+      turnOn:Boolean,
+      date:"",
+      product:""
+    },
+    plantImg:{
+      image:"",
+      plant:"",
+      date:""
+    }
   };
 
   async componentDidMount() {
@@ -56,7 +66,11 @@ class Home extends Component {
     const light = await api.get(`/lights`);
     const fan = await api.get(`/fans`);
     const exhaust = await api.get(`/exhausts`);
+    const waterBomb = await api.get(`/waterBombs`);
+    const plantImg = await api.get(`/plantImages`);
     
+    console.log(1, plantImg);
+
     this.setState(
       {
         temperature: temp.data[0],
@@ -64,8 +78,10 @@ class Home extends Component {
         soil: soil.data[0],
         floatSwitch: floatSwitch.data[0],
         light: light.data[0],
-        fan: fan.data[0],
-        exhaust: exhaust.data[0],
+        fan: light.data[0],
+        exhaust: light.data[0],
+        waterBomb: waterBomb.data[0],
+        plantImg: plantImg.data[0]
       }
     )
   }
@@ -84,14 +100,14 @@ class Home extends Component {
     let backdrop;
 
     const { 
-      temperature, humidity, soil, 
-      floatSwitch, light, fan, exhaust 
+      temperature, humidity, soil, floatSwitch, 
+      light, fan, exhaust, waterBomb, plantImg
     } = this.state;
 
     if(this.state.sideDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler}/>;
     }
-    console.log(6,fan);
+
     return (
       <div style={{height: '100%'}}>
         <Toolbar drawerClickHandler={this.drawerToggleClickHandler}/>
@@ -99,6 +115,8 @@ class Home extends Component {
         {backdrop}
         <main className="divMain">
           <div className="divImg">
+            <img src={plantImg.image} alt="Foto planta" 
+            width="325px" height="300px"/>
           </div>
           <div className="painelManualButton">
             <ManualButton title="Luz"/>
@@ -114,7 +132,7 @@ class Home extends Component {
             <BlockSquare title="Luz" data={light.turnOn===true ? "Ligado" : "Desligado"}/>
             <BlockSquare title="Ventilação" data={fan.turnOn===true ? "Ligado" : "Desligado"}/>
             <BlockSquare title="Exaustor" data={exhaust.turnOn===true ? "Ligado" : "Desligado"}/>
-            <BlockSquare title="Bomba" data={light.turnOn===true ? "Ligado" : "Desligado"}/>
+            <BlockSquare title="Bomba" data={waterBomb.turnOn===true ? "Ligado" : "Desligado"}/>
           </div>
         </main>
         <Footer />

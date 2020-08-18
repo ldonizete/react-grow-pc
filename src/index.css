@@ -24,7 +24,7 @@ body {
 }
 
 @media (min-width: 900px) {
-  .rowBlockSquare { grid-template-columns: repeat(3, 1fr); }
+  .rowBlockSquare { grid-template-columns: repeat(4, 1fr); }
 }
 
 .divMain {
@@ -35,7 +35,6 @@ body {
 }
 
 .divImg {
-  background-color: red;
   width: 325px;
   height: 300px;
   margin-top: 60px;
