@@ -7,6 +7,9 @@ import BlockSquare from '../../components/BlockSquare/BlockSquare';
 import Footer from '../../components/Footer/Footer';
 import ManualButton from '../../components/Buttons/ManualButton/index';
 import api from '../../services/services';
+import axios from 'axios';
+
+import { faSun } from '@fortawesome/free-solid-svg-icons'
 
 class Home extends Component {
   state = {
@@ -32,28 +35,34 @@ class Home extends Component {
       product:""
     },
     light:{
-      turnOn:Boolean,
+      turnOn:true,
       date:"",
       product:""
     },
     fan:{
-      turnOn:Boolean,
+      turnOn:true,
       date:"",
       product:""
     },
     exhaust:{
-      turnOn:Boolean,
+      turnOn:true,
       date:"",
       product:""
     },
     waterBomb:{
-      turnOn:Boolean,
+      turnOn:true,
       date:"",
       product:""
     },
     plantImg:{
       image:"",
       plant:"",
+      date:""
+    },
+    product: {
+      serie:"",
+      description:"",
+      customer:"",
       date:""
     }
   };
@@ -68,8 +77,7 @@ class Home extends Component {
     const exhaust = await api.get(`/exhausts`);
     const waterBomb = await api.get(`/waterBombs`);
     const plantImg = await api.get(`/plantImages`);
-    
-    console.log(1, plantImg);
+    const product = await api.get(`/products`);
 
     this.setState(
       {
@@ -81,7 +89,8 @@ class Home extends Component {
         fan: light.data[0],
         exhaust: light.data[0],
         waterBomb: waterBomb.data[0],
-        plantImg: plantImg.data[0]
+        plantImg: plantImg.data[0],
+        product: product.data[0]
       }
     )
   }
@@ -96,7 +105,26 @@ class Home extends Component {
     this.setState({sideDrawerOpen: false})
   }
 
+  handleClickLight = e => {
+    e.preventDefault();
+
+    axios.post("https://node-grow.herokuapp.com/lights", 
+    {
+      turnOn: this.state.light.turnOn,
+      product: this.state.product._id
+    })
+    .then(res => { console.log(res) })
+    .catch(error => { console.log(error) })
+
+    this.setState({
+      light : {
+        turnOn: !this.state.light.turnOn
+      }
+    });
+  }
+
   render() {
+    
     let backdrop;
 
     const { 
@@ -115,15 +143,18 @@ class Home extends Component {
         {backdrop}
         <main className="divMain">
           <div className="divImg">
-            <img src={plantImg.image} alt="Foto planta" 
-            width="325px" height="300px"/>
+            <img className="imgStyle" src={plantImg.image} alt="Foto planta"/>
+            <div className="painelManualButton">
+              <ManualButton 
+                title="Luz" evento={this.handleClickLight}
+                icon = {faSun}
+              />
+              <ManualButton title="Fan"/>
+              <ManualButton title="Irrigar"/>
+              <ManualButton title="Foto"/>
+            </div>
           </div>
-          <div className="painelManualButton">
-            <ManualButton title="Luz"/>
-            <ManualButton title="Fan"/>
-            <ManualButton title="Irrigar"/>
-            <ManualButton title="Foto"/>
-          </div>
+          
           <div className="rowBlockSquare">
             <BlockSquare title="Humidade do solo" data={soil.moisture}/>
             <BlockSquare title="Temperatura" data={temperature.temperature}/>

@@ -35,7 +35,23 @@ body {
 }
 
 .divImg {
+  position: relative;
   width: 325px;
   height: 300px;
   margin-top: 60px;
+}
+
+.imgStyle {
+  width: 325px;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.painelManualButton {
+  position: absolute;
+  top: 87%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
 }
