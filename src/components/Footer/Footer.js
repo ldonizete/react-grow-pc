@@ -7,7 +7,7 @@ function Footer() {
       <div className="phantom"/>
       <div className="footerBase">
         <p>
-          Footer
+          Criado por <strong>Lucas Donizete</strong>
         </p>
       </div>
     </div>

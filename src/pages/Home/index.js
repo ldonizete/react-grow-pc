@@ -9,7 +9,7 @@ import ManualButton from '../../components/Buttons/ManualButton/index';
 import api from '../../services/services';
 import axios from 'axios';
 
-import { faSun } from '@fortawesome/free-solid-svg-icons'
+import { faSun, faFan, faFaucet, faCamera} from '@fortawesome/free-solid-svg-icons'
 
 class Home extends Component {
   state = {
@@ -123,6 +123,42 @@ class Home extends Component {
     });
   }
 
+  handleClickFan = e => {
+    e.preventDefault();
+
+    axios.post("https://node-grow.herokuapp.com/fans", 
+    {
+      turnOn: this.state.fan.turnOn,
+      product: this.state.product._id
+    })
+    .then(res => { console.log(res) })
+    .catch(error => { console.log(error) })
+
+    this.setState({
+      fan : {
+        turnOn: !this.state.fan.turnOn
+      }
+    });
+  }
+
+  handleClickWaterBomb = e => {
+    e.preventDefault();
+
+    axios.post("https://node-grow.herokuapp.com/waterBombs", 
+    {
+      turnOn: this.state.waterBomb.turnOn,
+      product: this.state.product._id
+    })
+    .then(res => { console.log(res) })
+    .catch(error => { console.log(error) })
+
+    this.setState({
+      waterBomb : {
+        turnOn: !this.state.waterBomb.turnOn
+      }
+    });
+  }
+
   render() {
     
     let backdrop;
@@ -148,10 +184,20 @@ class Home extends Component {
               <ManualButton 
                 title="Luz" evento={this.handleClickLight}
                 icon = {faSun}
+                color = {this.state.light.turnOn ? "rgb(220 220 220)" : "#3fa663"}
               />
-              <ManualButton title="Fan"/>
-              <ManualButton title="Irrigar"/>
-              <ManualButton title="Foto"/>
+              <ManualButton title="Fan" 
+                icon = {faFan} evento={this.handleClickFan}
+                color = {this.state.fan.turnOn ? "rgb(220 220 220)" : "#3fa663"}
+              />
+              <ManualButton title="Irrigar"
+                icon = {faFaucet} evento={this.handleClickWaterBomb}
+                color = {this.state.waterBomb.turnOn ? "rgb(220 220 220)" : "#3fa663"}
+              />
+              <ManualButton title="Foto"
+               icon = {faCamera}
+              //  color = "rgb(220 220 220)" 
+              />
             </div>
           </div>
           
