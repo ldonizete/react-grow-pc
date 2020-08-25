@@ -179,7 +179,10 @@ class Home extends Component {
         {backdrop}
         <main className="divMain">
           <div className="divImg">
-            <img className="imgStyle" src={plantImg.image} alt="Foto planta"/>
+            <div className="imgStyle" style={{backgroundImage:`url(${plantImg.image})`}}>
+
+            </div>
+            {/* <img className="imgStyle" src={plantImg.image} alt="Foto planta"/> */}
             <div className="painelManualButton">
               <ManualButton 
                 title="Luz" evento={this.handleClickLight}
@@ -206,9 +209,6 @@ class Home extends Component {
                 <BlockSquare title="TEMPERATURA" data={temperature.temperature}/>
                 <BlockSquare title="HUMIDADE DO AR" data={humidity.humidity}/>
                 <BlockSquare title="NIVEL ÁGUA" data={floatSwitch.levelWater}/>
-                <BlockSquare title="LUZ" data={light.turnOn===true ? "ON" : "OFF"}/>
-                <BlockSquare title="VENTILAÇÃO" data={fan.turnOn===true ? "ON" : "OFF"}/>
-                <BlockSquare title="Bomba" data={waterBomb.turnOn===true ? "ON" : "OFF"}/>
               </div>
             </div>
           </div>
