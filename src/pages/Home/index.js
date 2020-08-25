@@ -199,17 +199,18 @@ class Home extends Component {
               //  color = "rgb(220 220 220)" 
               />
             </div>
-          </div>
-          
-          <div className="rowBlockSquare">
-            <BlockSquare title="Humidade do solo" data={soil.moisture}/>
-            <BlockSquare title="Temperatura" data={temperature.temperature}/>
-            <BlockSquare title="Humidade do ar" data={humidity.humidity}/>
-            <BlockSquare title="Nivel água" data={floatSwitch.levelWater}/>
-            <BlockSquare title="Luz" data={light.turnOn===true ? "Ligado" : "Desligado"}/>
-            <BlockSquare title="Ventilação" data={fan.turnOn===true ? "Ligado" : "Desligado"}/>
-            <BlockSquare title="Exaustor" data={exhaust.turnOn===true ? "Ligado" : "Desligado"}/>
-            <BlockSquare title="Bomba" data={waterBomb.turnOn===true ? "Ligado" : "Desligado"}/>
+            <div className="containerPainel">
+              <label className="labelPainel">Painel de Monitoramento</label>
+              <div className="rowBlockSquare">
+                <BlockSquare title="HUMID. DO SOLO" data={soil.moisture}/>
+                <BlockSquare title="TEMPERATURA" data={temperature.temperature}/>
+                <BlockSquare title="HUMIDADE DO AR" data={humidity.humidity}/>
+                <BlockSquare title="NIVEL ÁGUA" data={floatSwitch.levelWater}/>
+                <BlockSquare title="LUZ" data={light.turnOn===true ? "ON" : "OFF"}/>
+                <BlockSquare title="VENTILAÇÃO" data={fan.turnOn===true ? "ON" : "OFF"}/>
+                <BlockSquare title="Bomba" data={waterBomb.turnOn===true ? "ON" : "OFF"}/>
+              </div>
+            </div>
           </div>
         </main>
         <Footer />
