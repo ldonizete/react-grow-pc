@@ -9,7 +9,7 @@ import ManualButton from '../../components/Buttons/ManualButton/index';
 import api from '../../services/services';
 import axios from 'axios';
 
-import { faSun, faFan, faFaucet, faCamera} from '@fortawesome/free-solid-svg-icons'
+import { faLightbulb, faFan, faFaucet, faCamera, faCogs} from '@fortawesome/free-solid-svg-icons'
 
 class Home extends Component {
   state = {
@@ -44,11 +44,6 @@ class Home extends Component {
       date:"",
       product:""
     },
-    exhaust:{
-      turnOn:true,
-      date:"",
-      product:""
-    },
     waterBomb:{
       turnOn:true,
       date:"",
@@ -74,7 +69,6 @@ class Home extends Component {
     const floatSwitch = await api.get(`/floatSwitchs`);
     const light = await api.get(`/lights`);
     const fan = await api.get(`/fans`);
-    const exhaust = await api.get(`/exhausts`);
     const waterBomb = await api.get(`/waterBombs`);
     const plantImg = await api.get(`/plantImages`);
     const product = await api.get(`/products`);
@@ -86,8 +80,7 @@ class Home extends Component {
         soil: soil.data[0],
         floatSwitch: floatSwitch.data[0],
         light: light.data[0],
-        fan: light.data[0],
-        exhaust: light.data[0],
+        fan: fan.data[0],
         waterBomb: waterBomb.data[0],
         plantImg: plantImg.data[0],
         product: product.data[0]
@@ -107,7 +100,7 @@ class Home extends Component {
 
   handleClickLight = e => {
     e.preventDefault();
-
+   
     axios.post("https://node-grow.herokuapp.com/lights", 
     {
       turnOn: this.state.light.turnOn,
@@ -164,8 +157,7 @@ class Home extends Component {
     let backdrop;
 
     const { 
-      temperature, humidity, soil, floatSwitch, 
-      light, fan, exhaust, waterBomb, plantImg
+      temperature, humidity, soil, floatSwitch, plantImg
     } = this.state;
 
     if(this.state.sideDrawerOpen) {
@@ -179,14 +171,19 @@ class Home extends Component {
         {backdrop}
         <main className="divMain">
           <div className="divImg">
-            <div className="imgStyle" style={{backgroundImage:`url(${plantImg.image})`}}>
-
+            <div 
+              className="imgStyle" 
+              style={{backgroundImage:`url(${plantImg.image})`}}>
             </div>
-            {/* <img className="imgStyle" src={plantImg.image} alt="Foto planta"/> */}
             <div className="painelManualButton">
               <ManualButton 
+                title="Auto" //evento={this.handleClickLight}
+                icon = {faCogs}
+                //color = {this.state.light.turnOn ? "rgb(220 220 220)" : "#3fa663"}
+              />
+              <ManualButton 
                 title="Luz" evento={this.handleClickLight}
-                icon = {faSun}
+                icon = {faLightbulb}
                 color = {this.state.light.turnOn ? "rgb(220 220 220)" : "#3fa663"}
               />
               <ManualButton title="Fan" 
@@ -205,7 +202,7 @@ class Home extends Component {
             <div className="containerPainel">
               <label className="labelPainel">Painel de Monitoramento</label>
               <div className="rowBlockSquare">
-                <BlockSquare title="HUMID. DO SOLO" data={soil.moisture}/>
+                <BlockSquare title="HUMIDADE DO SOLO" data={soil.moisture}/>
                 <BlockSquare title="TEMPERATURA" data={temperature.temperature}/>
                 <BlockSquare title="HUMIDADE DO AR" data={humidity.humidity}/>
                 <BlockSquare title="NIVEL ÁGUA" data={floatSwitch.levelWater}/>

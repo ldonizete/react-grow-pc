@@ -36,6 +36,7 @@ body {
   height: 100%;
   align-items: center;
   justify-content: center;
+  /* z-index: -1; */
 }
 
 @media (max-width: 800px) {
@@ -54,15 +55,18 @@ body {
 .painelManualButton {
   position: absolute;
   top: 85%;
-  left: 27%;
+  left: 34%;
   transform: translate(-50%, -50%);
   display: flex;
 }
 
 @media (max-width: 800px) {
   .painelManualButton {
-    top: 43%;
+    top: 48%;
     left: 50%;
+  }
+  .labelPainel {
+    font-size: 30px !important;
   }
 }
 
