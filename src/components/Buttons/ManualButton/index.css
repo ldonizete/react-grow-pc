@@ -5,14 +5,22 @@
   margin: 4px 4px;
   cursor: pointer;
   border-radius: 15px;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.25);
+  outline: none;
 }
 
 .manualButton:hover {
+  background-color:rgb(63, 166, 99);
+}
+
+.manualButton.green {
   background-color:rgb(63, 166, 99);
 }

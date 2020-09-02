@@ -9,7 +9,7 @@ import ManualButton from '../../components/Buttons/ManualButton/index';
 import api from '../../services/services';
 import axios from 'axios';
 
-import { faLightbulb, faFan, faFaucet, faCamera, faCogs} from '@fortawesome/free-solid-svg-icons'
+import { faLightbulb, faFan, faFaucet, faCamera} from '@fortawesome/free-solid-svg-icons'
 
 class Home extends Component {
   state = {
@@ -165,7 +165,7 @@ class Home extends Component {
     }
 
     return (
-      <div style={{height: '100%'}}>
+      <div>
         <Toolbar drawerClickHandler={this.drawerToggleClickHandler}/>
         <SideDrawer show={this.state.sideDrawerOpen}/>
         {backdrop}
@@ -174,26 +174,27 @@ class Home extends Component {
             <div 
               className="imgStyle" 
               style={{backgroundImage:`url(${plantImg.image})`}}>
+                <div className="painelManualButton">
+                  <ManualButton 
+                    title="Luz" evento={this.handleClickLight}
+                    icon = {faLightbulb}
+                    color = {this.state.light.turnOn ? "manualButton" : "manualButton green"}
+                  />
+                  <ManualButton title="Fan" 
+                    icon = {faFan} evento={this.handleClickFan}
+                    color = {this.state.fan.turnOn ? "manualButton" : "manualButton green"}
+                  />
+                  <ManualButton title="Irrigar"
+                    icon = {faFaucet} evento={this.handleClickWaterBomb}
+                    color = {this.state.waterBomb.turnOn ? "manualButton" : "manualButton green"}
+                  />
+                  <ManualButton title="Foto"
+                    icon = {faCamera}
+                    color = "manualButton"
+                  />
+              </div>
             </div>
-            <div className="painelManualButton">
-              <ManualButton 
-                title="Luz" evento={this.handleClickLight}
-                icon = {faLightbulb}
-                color = {this.state.light.turnOn ? "rgb(220 220 220)" : "#3fa663"}
-              />
-              <ManualButton title="Fan" 
-                icon = {faFan} evento={this.handleClickFan}
-                color = {this.state.fan.turnOn ? "rgb(220 220 220)" : "#3fa663"}
-              />
-              <ManualButton title="Irrigar"
-                icon = {faFaucet} evento={this.handleClickWaterBomb}
-                color = {this.state.waterBomb.turnOn ? "rgb(220 220 220)" : "#3fa663"}
-              />
-              <ManualButton title="Foto"
-               icon = {faCamera}
-              //  color = "rgb(220 220 220)" 
-              />
-            </div>
+            
             <div className="containerPainel">
               <label className="labelPainel">Painel de Monitoramento</label>
               <div className="rowBlockSquare">

@@ -4,9 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function ManualButton(props) {
   return (
-    <button className="manualButton" 
+    <button className={props.color}
       onClick={props.evento}
-      style={{background:props.color}}
     >
       <FontAwesomeIcon icon={props.icon} style={{width:'32px', height:'32px'}}/>
       <div className="divButton">

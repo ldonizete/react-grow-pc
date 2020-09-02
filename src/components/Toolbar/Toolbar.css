@@ -3,8 +3,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: green;
+  background: rgb(63, 166, 99);
   height: 56px;
+  z-index:100;
 }
 
 .toolbar__navigation {
