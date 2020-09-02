@@ -177,11 +177,6 @@ class Home extends Component {
             </div>
             <div className="painelManualButton">
               <ManualButton 
-                title="Auto" //evento={this.handleClickLight}
-                icon = {faCogs}
-                //color = {this.state.light.turnOn ? "rgb(220 220 220)" : "#3fa663"}
-              />
-              <ManualButton 
                 title="Luz" evento={this.handleClickLight}
                 icon = {faLightbulb}
                 color = {this.state.light.turnOn ? "rgb(220 220 220)" : "#3fa663"}
