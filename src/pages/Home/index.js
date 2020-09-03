@@ -181,6 +181,8 @@ class Home extends Component {
       backdrop = <Backdrop click={this.backdropClickHandler}/>;
     }
 
+    setInterval(window.location.reload(), 1000);
+
     return (
       <div>
         <Toolbar drawerClickHandler={this.drawerToggleClickHandler}/>
