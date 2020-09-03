@@ -59,6 +59,9 @@ class Home extends Component {
       description:"",
       customer:"",
       date:""
+    },
+    plant: {
+      id:"",
     }
   };
 
@@ -72,6 +75,9 @@ class Home extends Component {
     const waterBomb = await api.get(`/waterBombs`);
     const plantImg = await api.get(`/plantImages`);
     const product = await api.get(`/products`);
+    const plant = await api.get(`/plants`);
+
+    console.log(plant);
 
     this.setState(
       {
@@ -83,7 +89,8 @@ class Home extends Component {
         fan: fan.data[0],
         waterBomb: waterBomb.data[0],
         plantImg: plantImg.data[0],
-        product: product.data[0]
+        product: product.data[0],
+        plant: plant.data[0]
       }
     )
   }
@@ -152,6 +159,16 @@ class Home extends Component {
     });
   }
 
+  handleClickTakePhoto = e => {
+    e.preventDefault();
+
+    axios.post("https://node-grow.herokuapp.com/plantImages",
+    {
+      turnOn:true,
+      plant:this.state.plant._id
+    })
+  }
+
   render() {
     
     let backdrop;
@@ -189,7 +206,7 @@ class Home extends Component {
                     color = {this.state.waterBomb.turnOn ? "manualButton" : "manualButton green"}
                   />
                   <ManualButton title="Foto"
-                    icon = {faCamera}
+                    icon = {faCamera} evento={this.handleClickTakePhoto}
                     color = "manualButton"
                   />
               </div>
