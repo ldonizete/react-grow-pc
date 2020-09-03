@@ -165,6 +165,8 @@ class Home extends Component {
       turnOn:true,
       plant:this.state.plant._id
     })
+    .then(res => { console.log(res) })
+    .catch(error => { console.log(error) })
   }
 
   render() {
