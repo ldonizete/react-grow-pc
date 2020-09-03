@@ -77,8 +77,6 @@ class Home extends Component {
     const product = await api.get(`/products`);
     const plant = await api.get(`/plants`);
 
-    console.log(plant);
-
     this.setState(
       {
         temperature: temp.data[0],
