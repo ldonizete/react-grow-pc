@@ -77,7 +77,7 @@ class Home extends Component {
     const product = await api.get(`/products`);
     const plant = await api.get(`/plants`);
 
-    this.setState(
+    this.interval = setInterval(() => this.setState(
       {
         temperature: temp.data[0],
         humidity: humidity.data[0],
@@ -90,7 +90,11 @@ class Home extends Component {
         product: product.data[0],
         plant: plant.data[0]
       }
-    )
+    ),500)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   drawerToggleClickHandler = () => {
@@ -181,7 +185,7 @@ class Home extends Component {
       backdrop = <Backdrop click={this.backdropClickHandler}/>;
     }
 
-    setInterval(window.location.reload(), 1000);
+    // setInterval(window.location.reload(), 1000);
 
     return (
       <div>
