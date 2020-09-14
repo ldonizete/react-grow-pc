@@ -77,7 +77,9 @@ class Home extends Component {
     const product = await api.get(`/products`);
     const plant = await api.get(`/plants`);
 
-    this.interval = setInterval(() => this.setState(
+    
+
+    this.setState(
       {
         temperature: temp.data[0],
         humidity: humidity.data[0],
@@ -90,12 +92,12 @@ class Home extends Component {
         product: product.data[0],
         plant: plant.data[0]
       }
-    ),500)
+    )
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.interval);
+  // }
 
   drawerToggleClickHandler = () => {
     this.setState((prevState) => {
@@ -112,12 +114,12 @@ class Home extends Component {
    
     axios.post("https://node-grow.herokuapp.com/lights", 
     {
-      turnOn: this.state.light.turnOn,
+      turnOn: !this.state.light.turnOn,
       product: this.state.product._id
     })
     .then(res => { console.log(res) })
-    .catch(error => { console.log(error) })
-
+    .catch(error => { console.log(error) })   
+    
     this.setState({
       light : {
         turnOn: !this.state.light.turnOn
@@ -130,7 +132,7 @@ class Home extends Component {
 
     axios.post("https://node-grow.herokuapp.com/fans", 
     {
-      turnOn: this.state.fan.turnOn,
+      turnOn: !this.state.fan.turnOn,
       product: this.state.product._id
     })
     .then(res => { console.log(res) })
@@ -148,7 +150,7 @@ class Home extends Component {
 
     axios.post("https://node-grow.herokuapp.com/waterBombs", 
     {
-      turnOn: this.state.waterBomb.turnOn,
+      turnOn: !this.state.waterBomb.turnOn,
       product: this.state.product._id
     })
     .then(res => { console.log(res) })
@@ -185,7 +187,7 @@ class Home extends Component {
       backdrop = <Backdrop click={this.backdropClickHandler}/>;
     }
 
-    // setInterval(window.location.reload(), 1000);
+    // setInterval(window.location.reload(), 30000);
 
     return (
       <div>
@@ -201,15 +203,15 @@ class Home extends Component {
                   <ManualButton 
                     title="Luz" evento={this.handleClickLight}
                     icon = {faLightbulb}
-                    color = {this.state.light.turnOn ? "manualButton" : "manualButton green"}
+                    color = {this.state.light.turnOn ? "manualButton green" : "manualButton"}
                   />
                   <ManualButton title="Fan" 
                     icon = {faFan} evento={this.handleClickFan}
-                    color = {this.state.fan.turnOn ? "manualButton" : "manualButton green"}
+                    color = {this.state.fan.turnOn ? "manualButton green" : "manualButton"}
                   />
                   <ManualButton title="Irrigar"
                     icon = {faFaucet} evento={this.handleClickWaterBomb}
-                    color = {this.state.waterBomb.turnOn ? "manualButton" : "manualButton green"}
+                    color = {this.state.waterBomb.turnOn ? "manualButton green" : "manualButton"}
                   />
                   <ManualButton title="Foto"
                     icon = {faCamera} evento={this.handleClickTakePhoto}

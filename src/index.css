@@ -24,7 +24,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 15%;
+  margin-top: 5%;
   padding: 1em;
 }
 
@@ -35,11 +35,11 @@ body {
   height: 100%;
   align-items: center;
   justify-content: center;
-  /* z-index: -1; */
 }
 
 @media (max-width: 800px) {
-  .divImg { flex-direction: column;}
+  .divImg   { flex-direction: column;}
+  .divMain  { margin-top: 12%;}
 }
 
 .imgStyle {
