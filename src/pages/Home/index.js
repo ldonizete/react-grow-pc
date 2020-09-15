@@ -64,7 +64,9 @@ class Home extends Component {
       id:"",
     },
     auto:{
-      turnOn:true,
+      turnOn:false,
+      date:"",
+      product:""
     }
   };
 
@@ -80,6 +82,8 @@ class Home extends Component {
     const product = await api.get(`/products`);
     const plant = await api.get(`/plants`);
     const auto = await api.get(`/autos`);
+
+    console.log(auto)
 
     this.setState(
       {
@@ -97,10 +101,6 @@ class Home extends Component {
       }
     )
   }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.interval);
-  // }
 
   drawerToggleClickHandler = () => {
     this.setState((prevState) => {
@@ -142,7 +142,7 @@ class Home extends Component {
     .catch(error => { console.log(error) })   
     
     this.setState({
-      light : {
+      auto : {
         turnOn: !this.state.auto.turnOn
       }
     });
@@ -206,8 +206,6 @@ class Home extends Component {
     if(this.state.sideDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler}/>;
     }
-
-    // setInterval(window.location.reload(), 30000);
 
     return (
       <div>
