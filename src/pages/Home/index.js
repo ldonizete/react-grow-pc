@@ -9,7 +9,7 @@ import ManualButton from '../../components/Buttons/ManualButton/index';
 import api from '../../services/services';
 import axios from 'axios';
 
-import { faLightbulb, faFan, faFaucet, faCamera} from '@fortawesome/free-solid-svg-icons'
+import { faLightbulb, faFan, faFaucet, faCamera, faSync} from '@fortawesome/free-solid-svg-icons'
 
 class Home extends Component {
   state = {
@@ -62,6 +62,9 @@ class Home extends Component {
     },
     plant: {
       id:"",
+    },
+    auto:{
+      turnOn:true,
     }
   };
 
@@ -76,8 +79,7 @@ class Home extends Component {
     const plantImg = await api.get(`/plantImages`);
     const product = await api.get(`/products`);
     const plant = await api.get(`/plants`);
-
-    
+    const auto = await api.get(`/autos`);
 
     this.setState(
       {
@@ -90,7 +92,8 @@ class Home extends Component {
         waterBomb: waterBomb.data[0],
         plantImg: plantImg.data[0],
         product: product.data[0],
-        plant: plant.data[0]
+        plant: plant.data[0],
+        auto: auto.data[0],
       }
     )
   }
@@ -123,6 +126,24 @@ class Home extends Component {
     this.setState({
       light : {
         turnOn: !this.state.light.turnOn
+      }
+    });
+  }
+
+  handleClickAuto = e => {
+    e.preventDefault();
+   
+    axios.post("https://node-grow.herokuapp.com/autos", 
+    {
+      turnOn: !this.state.auto.turnOn,
+      product: this.state.product._id
+    })
+    .then(res => { console.log(res) })
+    .catch(error => { console.log(error) })   
+    
+    this.setState({
+      light : {
+        turnOn: !this.state.auto.turnOn
       }
     });
   }
@@ -176,7 +197,6 @@ class Home extends Component {
   }
 
   render() {
-    
     let backdrop;
 
     const { 
@@ -201,6 +221,11 @@ class Home extends Component {
               style={{backgroundImage:`url(${plantImg.image})`}}>
                 <div className="painelManualButton">
                   <ManualButton 
+                    title="Auto" evento={this.handleClickAuto}
+                    icon = {faSync}
+                    color = {this.state.auto.turnOn ? "manualButton green" : "manualButton"}
+                  />
+                  <ManualButton 
                     title="Luz" evento={this.handleClickLight}
                     icon = {faLightbulb}
                     color = {this.state.light.turnOn ? "manualButton green" : "manualButton"}
@@ -223,9 +248,9 @@ class Home extends Component {
             <div className="containerPainel">
               <label className="labelPainel">Painel de Monitoramento</label>
               <div className="rowBlockSquare">
-                <BlockSquare title="HUMIDADE DO SOLO" data={soil.moisture}/>
+                <BlockSquare title="HUMIDADE DO SOLO" data={Number(soil.moisture).toFixed(2) + "%"}/>
                 <BlockSquare title="TEMPERATURA" data={temperature.temperature}/>
-                <BlockSquare title="HUMIDADE DO AR" data={humidity.humidity}/>
+                <BlockSquare title="HUMIDADE DO AR" data={humidity.humidity + "%"}/>
                 <BlockSquare title="NIVEL ÁGUA" data={floatSwitch.levelWater}/>
               </div>
             </div>

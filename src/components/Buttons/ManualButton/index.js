@@ -7,7 +7,7 @@ function ManualButton(props) {
     <button className={props.color}
       onClick={props.evento}
     >
-      <FontAwesomeIcon icon={props.icon} style={{width:'32px', height:'32px'}}/>
+      <FontAwesomeIcon icon={props.icon} style={{width:'25px', height:'25px'}}/>
       <div className="divButton">
         {props.title}
       </div>
