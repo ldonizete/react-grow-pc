@@ -13,6 +13,7 @@ import { faLightbulb, faFan, faFaucet, faCamera, faSync} from '@fortawesome/free
 
 class Home extends Component {
   state = {
+    teste:51,
     sideDrawerOpen: false,
     temperature: {
       temperature:"",
@@ -83,8 +84,6 @@ class Home extends Component {
     const plant = await api.get(`/plants`);
     const auto = await api.get(`/autos`);
 
-    console.log(auto)
-
     this.setState(
       {
         temperature: temp.data[0],
@@ -114,20 +113,23 @@ class Home extends Component {
 
   handleClickLight = e => {
     e.preventDefault();
-   
-    axios.post("https://node-grow.herokuapp.com/lights", 
+  
+    if(!this.state.auto.turnOn)
     {
-      turnOn: !this.state.light.turnOn,
-      product: this.state.product._id
-    })
-    .then(res => { console.log(res) })
-    .catch(error => { console.log(error) })   
-    
-    this.setState({
-      light : {
-        turnOn: !this.state.light.turnOn
-      }
-    });
+      axios.post("https://node-grow.herokuapp.com/lights", 
+      {
+        turnOn: !this.state.light.turnOn,
+        product: this.state.product._id
+      })
+      .then(res => { console.log(res) })
+      .catch(error => { console.log(error) })   
+      
+      this.setState({
+        light : {
+          turnOn: !this.state.light.turnOn
+        }
+      });
+    }
   }
 
   handleClickAuto = e => {
@@ -151,49 +153,67 @@ class Home extends Component {
   handleClickFan = e => {
     e.preventDefault();
 
-    axios.post("https://node-grow.herokuapp.com/fans", 
+    if(!this.state.auto.turnOn)
     {
-      turnOn: !this.state.fan.turnOn,
-      product: this.state.product._id
-    })
-    .then(res => { console.log(res) })
-    .catch(error => { console.log(error) })
+      axios.post("https://node-grow.herokuapp.com/fans", 
+      {
+        turnOn: !this.state.fan.turnOn,
+        product: this.state.product._id
+      })
+      .then(res => { console.log(res) })
+      .catch(error => { console.log(error) })
 
-    this.setState({
-      fan : {
-        turnOn: !this.state.fan.turnOn
-      }
-    });
+      this.setState({
+        fan : {
+          turnOn: !this.state.fan.turnOn
+        }
+      });
+    }
   }
 
   handleClickWaterBomb = e => {
     e.preventDefault();
 
-    axios.post("https://node-grow.herokuapp.com/waterBombs", 
+    if(!this.state.auto.turnOn)
     {
-      turnOn: !this.state.waterBomb.turnOn,
-      product: this.state.product._id
-    })
-    .then(res => { console.log(res) })
-    .catch(error => { console.log(error) })
-
-    this.setState({
-      waterBomb : {
-        turnOn: !this.state.waterBomb.turnOn
-      }
-    });
+      axios.post("https://node-grow.herokuapp.com/waterBombs", 
+      {
+        turnOn: !this.state.waterBomb.turnOn,
+        product: this.state.product._id
+      })
+      .then(res => { console.log(res) })
+      .catch(error => { console.log(error) })
+  
+      this.setState({
+        waterBomb : {
+          turnOn: !this.state.waterBomb.turnOn
+        }
+      });
+    }
   }
 
-  handleClickTakePhoto = e => {
+  handleClickTakePhoto = async e => {
     e.preventDefault();
 
-    axios.post("https://node-grow.herokuapp.com/plantImages",
+    if(!this.state.auto.turnOn)
     {
-      turnOn:true,
-      plant:this.state.plant._id
-    })
-    .then(res => { console.log(res) })
-    .catch(error => { console.log(error) })
+      axios.post("https://node-grow.herokuapp.com/plantImages",
+      {
+        turnOn:true,
+        plant:this.state.plant._id
+      })
+      .then(res => { console.log(res) })
+      .catch(error => { console.log(error) })
+
+      const plantImg = await api.get(`/plantImages`);
+      console.log(1,plantImg);
+      this.setState(
+        {
+         plantImg: plantImg.data[0],
+         teste: 31
+        }
+      )
+    }
   }
 
   render() {
@@ -224,7 +244,8 @@ class Home extends Component {
                     color = {this.state.auto.turnOn ? "manualButton green" : "manualButton"}
                   />
                   <ManualButton 
-                    title="Luz" evento={this.handleClickLight}
+                    title="Luz" 
+                    evento={this.handleClickLight}
                     icon = {faLightbulb}
                     color = {this.state.light.turnOn ? "manualButton green" : "manualButton"}
                   />
@@ -246,8 +267,9 @@ class Home extends Component {
             <div className="containerPainel">
               <label className="labelPainel">Painel de Monitoramento</label>
               <div className="rowBlockSquare">
-                <BlockSquare title="HUMIDADE DO SOLO" data={Number(soil.moisture).toFixed(2) + "%"}/>
-                <BlockSquare title="TEMPERATURA" data={temperature.temperature}/>
+                <BlockSquare title="HUMIDADE DO SOLO" data={soil.moisture + "%"}/>
+                <BlockSquare title="TEMPERATURA" data={this.state.teste}/>
+                {/* temperature.temperature */}
                 <BlockSquare title="HUMIDADE DO AR" data={humidity.humidity + "%"}/>
                 <BlockSquare title="NIVEL ÁGUA" data={floatSwitch.levelWater}/>
               </div>
